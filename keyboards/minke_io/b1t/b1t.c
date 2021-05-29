@@ -18,8 +18,8 @@
 extern void set_space_led(bool is_on);
 
 static void init_led_ports(void) {
-    setPinOutput(F4);
-    setPinOutput(F5);
+    setPinOutput(D4);
+    setPinOutput(E6);
     keyboard_pre_init_user();
 }
 
@@ -31,7 +31,7 @@ void keyboard_pre_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
-        writePin(F5, !led_state.caps_lock);
+        writePin(E6, !led_state.caps_lock);
     }
     return res;
 }
@@ -39,20 +39,20 @@ bool led_update_kb(led_t led_state) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 0:
-            writePin(F4, 1);
+            writePin(D4, 1);
             set_space_led(false);
             break;
         case 1:
-            writePin(F4, 0);
+            writePin(D4, 0);
             set_space_led(false);
             break;
         case 2:
-            writePin(F4, 1);
+            writePin(D4, 1);
             set_space_led(true);
             break;
         default:
             // 3 or higher = both lights on.
-            writePin(F4, 0);
+            writePin(D4, 0);
             set_space_led(true);
             break;
     }
